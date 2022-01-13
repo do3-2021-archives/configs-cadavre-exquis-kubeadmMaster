@@ -1,7 +1,9 @@
 apiVersion: apps/v1
-kind: Deployement
+kind: Deployment
 metadata:
-  name: provider
+  name: provider-verb
+  labels:
+    app: provider-verb
 spec:
   replicas: 1
   selector:
@@ -16,7 +18,14 @@ spec:
         - name: provider
           image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider
           ports:
-            - container-port: 8080
+            - containerPort: 8080
           env:
-            - WORD_TYPE: VERB
-      restartPolicy: OnFailure
+            - name: WORD_TYPE
+              value: VERB
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
