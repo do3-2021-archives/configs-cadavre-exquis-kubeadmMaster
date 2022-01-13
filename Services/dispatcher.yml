@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: dispatcher
 spec:
+  type: NodePort
+
+  # clusterIP: 162.38.112.41
   selector:
     app: dispatcher
   ports:
-    - port: 80
-      targetPort: 8080
-  type: LoadBalancer
+    - port: 8080
+  # externalIPs: 
+  #   - 162.38.112.41
