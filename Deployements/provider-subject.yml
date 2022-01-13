@@ -1,10 +1,16 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployement
 metadata:
   name: provider
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: provider-subject
   template:
+    metadata:
+      labels:
+        app: provider-subject
     spec:
       containers:
         - name: provider
