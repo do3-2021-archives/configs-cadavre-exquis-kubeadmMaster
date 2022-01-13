@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: provider-adjective
 spec:
-  type: NodePort
   selector:
     app: provider-adjective
   ports:

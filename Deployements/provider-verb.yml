@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: provider
-          image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider
+          image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider-bis
           ports:
             - containerPort: 8080
           env:
