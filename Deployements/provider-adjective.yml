@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Deployement
+metadata:
+  name: provider
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: provider
+          image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider
+          ports:
+            - container-port: 80
+          env:
+            - WORD_TYPE: ADJECTIVE
+      restartPolicy: OnFailure
