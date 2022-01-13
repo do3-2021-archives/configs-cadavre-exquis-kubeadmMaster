@@ -4,13 +4,19 @@ metadata:
   name: provider
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: provider-verb
   template:
+    metadata:
+      labels:
+        app: provider-verb
     spec:
       containers:
         - name: provider
           image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider
           ports:
-            - container-port: 80
+            - container-port: 8080
           env:
             - WORD_TYPE: VERB
       restartPolicy: OnFailure

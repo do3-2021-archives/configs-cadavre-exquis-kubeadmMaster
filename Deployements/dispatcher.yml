@@ -16,4 +16,4 @@ spec:
         - name: dispatcher
           image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-dispatcher
           ports:
-            - containerPort: 80
+            - containerPort: 8080

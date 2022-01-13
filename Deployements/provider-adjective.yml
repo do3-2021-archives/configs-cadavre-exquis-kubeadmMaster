@@ -16,7 +16,7 @@ spec:
         - name: provider
           image: registry.hub.docker.com/fteychene/cloud-cadavre-exquis-provider
           ports:
-            - container-port: 80
+            - container-port: 8080
           env:
             - WORD_TYPE: ADJECTIVE
       restartPolicy: OnFailure
