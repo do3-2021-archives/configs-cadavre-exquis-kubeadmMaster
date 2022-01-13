@@ -3,8 +3,8 @@
 
 
 ```
-kubectl apply -f ./Deployements/dispatcher.yml
-kubectl apply -f ./Services/dispatcher.yml
+kubectl apply -f ./Deployements
+kubectl apply -f ./Services
 ```
 
 ## accès avec minikube 
