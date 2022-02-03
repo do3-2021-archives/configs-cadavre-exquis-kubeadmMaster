@@ -23,3 +23,6 @@
     apt-get update
     apt-get install -y kubelet kubeadm kubectl
     apt-mark hold kubelet kubeadm kubectl
+
+- name: Reload deamon & restart kubelet
+  shell: systemctl daemon-reload && systemctl restart kubelet

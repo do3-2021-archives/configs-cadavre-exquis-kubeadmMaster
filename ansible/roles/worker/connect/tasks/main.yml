@@ -1,0 +1,3 @@
+- name: Join the cluster
+  shell: "{{ hostvars[groups['control'][0]]['join_command'] }}"
+  when: hostvars[groups['control'][0]]['join_command'] is defined
