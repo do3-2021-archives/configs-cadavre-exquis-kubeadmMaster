@@ -1,0 +1,14 @@
+- hosts: control-plane
+  become: yes
+  become_user: root
+  roles:
+    - docker
+    - kubeadm
+    - control/init
+- hosts : worker
+  become: yes
+  become_user: root
+  roles:
+    - docker
+    - kubeadm
+    - worker/connect
