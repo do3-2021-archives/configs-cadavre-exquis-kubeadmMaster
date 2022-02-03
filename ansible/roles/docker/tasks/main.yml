@@ -21,7 +21,7 @@
 
 - name: Add Docker repository
   apt_repository: 
-    repo: https://download.docker.com/linux/debian
+    repo: deb https://download.docker.com/linux/debian stable
     state: present
   when: is_docker_exist != 0
 
