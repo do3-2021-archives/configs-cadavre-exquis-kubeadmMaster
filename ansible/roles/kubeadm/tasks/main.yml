@@ -1,24 +1,24 @@
 # sudo apt-get update
 # sudo apt-get install -y apt-transport-https ca-certificates curl
 - name: Letting iptables see bridged traffic
-  shell: | 
-      cat <<EOF | tee /etc/modules-load.d/K8s.conf
-      br_netfilter
-      EOF
+  shell: |
+    cat <<EOF | tee /etc/modules-load.d/K8s.conf
+    br_netfilter
+    EOF
 
-      cat <<EOF | tee /etc/sysctl.d/k8s.conf
-      net.bridge.bridge-nf-call-ip6tables = 1
-      net.bridge.bridge-nf-call-iptables = 1
-      EOF
-      sysctl --system
+    cat <<EOF | tee /etc/sysctl.d/k8s.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    EOF
+    sysctl --system
 
 - name: Install dependancies
-  apt: 
+  apt:
     pkg: apt-transport-https
     state: latest
 
 - name: Download the Google Cloud public signing key
-  apt_key: 
+  apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
 
@@ -26,7 +26,7 @@
   apt_repository:
     repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
-    
+
 - name: Update apt package index, install kubelet, kubeadm and kubectl, and pin their version
   apt:
     pkg:
@@ -34,16 +34,19 @@
       - kubeadm
       - kubectl
 
+- name: Hold kubelet
+  dpkg_selections:
+    name: kubelet
+    selection: hold
 
 - name: Hold kubeadm
   dpkg_selections:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
+    name: kubeadm
     selection: hold
-    
-
+- name: Hold kubectl
+  dpkg_selections:
+    name: kubectl
+    selection: hold
 
 - name: Reload deamon & restart kubelet
   shell: systemctl daemon-reload && systemctl restart kubelet
