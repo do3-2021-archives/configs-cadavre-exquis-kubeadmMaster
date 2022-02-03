@@ -1,3 +1,9 @@
+- name: Chack if ca certificate exists
+  shell: cat /etc/kubernetes/pki/ca.crt
+  register: ca_cert
+  ignore_errors: true
+   
+
 - name: Join the cluster
-  when: hostvars[groups['control-plane'][0]]['control_join_command'] is defined
+  when: hostvars[groups['control-plane'][0]]['control_join_command'] is defined and ca_cert.rc != 0
   shell: "{{ hostvars[groups['control-plane'][0]]['control_join_command'] }}"

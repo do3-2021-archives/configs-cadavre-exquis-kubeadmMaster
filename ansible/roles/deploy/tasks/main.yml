@@ -1,0 +1,23 @@
+- name: copy the *cadavre exquis* Deployments
+  copy:
+    src: ../Deployements
+    dest: /root
+- name: copy the *cadavre exquis* Services
+  copy:
+    src: ../Services
+    dest: /root
+
+- name: apply deployment
+  shell: "kubectl apply -f {{ item }}"
+    # state: present
+    # src: "{{ item }}"
+    # apply: true
+  with_items:
+    - /root/Deployements/dispatcher.yml
+    - /root/Deployements/provider-adjective.yml
+    - /root/Deployements/provider-subject.yml
+    - /root/Deployements/provider-verb.yml
+    - /root/Services/dispatcher.yml
+    - /root/Services/provider-adjective.yml
+    - /root/Services/provider-subject.yml
+    - /root/Services/provider-verb.yml
