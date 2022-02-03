@@ -50,7 +50,7 @@ apt-mark hold kubelet kubeadm kubectl
 
 ```
 
-## création du control-plane & install calico
+## création du control & install calico
 ```bash
 kubeadm init --pod-network-cidr=192.168.0.0/16
 mkdir -p $HOME/.kube
