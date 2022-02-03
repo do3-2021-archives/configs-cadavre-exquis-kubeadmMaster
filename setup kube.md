@@ -59,7 +59,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 ```
 
-```markdown
+```bash
 kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
 kubectl create -f https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml
 ```

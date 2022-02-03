@@ -1,0 +1,41 @@
+- name: Check that docker binary exists
+  shell: command -v docker >/dev/null 2>&1
+  register: is_docker_exist
+  ignore_errors: true
+
+- name: Install Docker dependancies
+  apt: 
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: latest
+  when: is_docker_exist != 0
+
+- name: Add docker GPG key
+  apt_key: 
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: is_docker_exist != 0
+
+- name: Add Docker repository
+  apt_repository: 
+    url: https://download.docker.com/linux/debian
+    state: present
+  when: is_docker_exist != 0
+
+- name: Update apt cache
+  apt:
+    name: "*"
+    state: latest
+  when: is_docker_exist != 0
+
+- name: Install docker cli
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+  when: is_docker_exist != 0
