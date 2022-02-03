@@ -12,17 +12,38 @@
       EOF
       sysctl --system
 
+- name: Install dependancies
+  apt: 
+    pkg: apt-transport-https
+    state: latest
+
 - name: Download the Google Cloud public signing key
-  shell: curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  apt_key: 
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
 
 - name: Add the Kubernetes apt repository
-  shell: echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    
 - name: Update apt package index, install kubelet, kubeadm and kubectl, and pin their version
-  shell: |
-    apt-get update
-    apt-get install -y kubelet kubeadm kubectl
-    apt-mark hold kubelet kubeadm kubectl
+  apt:
+    pkg:
+      - kubelet
+      - kubeadm
+      - kubectl
+
+
+- name: Hold kubeadm
+  dpkg_selections:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    selection: hold
+    
+
 
 - name: Reload deamon & restart kubelet
   shell: systemctl daemon-reload && systemctl restart kubelet

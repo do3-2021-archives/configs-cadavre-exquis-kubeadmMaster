@@ -11,25 +11,20 @@
       - gnupg
       - lsb-release
     state: latest
-  when: is_docker_exist != 0
+  when: is_docker_exist.rc != 0
 
 - name: Add docker GPG key
   apt_key: 
     url: https://download.docker.com/linux/debian/gpg
     state: present
-  when: is_docker_exist != 0
+  when: is_docker_exist.rc != 0
 
 - name: Add Docker repository
-  apt_repository: 
-    repo: deb https://download.docker.com/linux/debian stable
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian   bullseye stable
     state: present
-  when: is_docker_exist != 0
+  when: is_docker_exist.rc != 0
 
-- name: Update apt cache
-  apt:
-    name: "*"
-    state: latest
-  when: is_docker_exist != 0
 
 - name: Install docker cli
   apt:
@@ -38,4 +33,4 @@
       - docker-ce-cli
       - containerd.io
     state: latest
-  when: is_docker_exist != 0
+  when: is_docker_exist.rc != 0
