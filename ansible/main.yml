@@ -1,4 +1,4 @@
-- hosts: control-plane
+- hosts: control
   become: yes
   become_user: root
   roles:

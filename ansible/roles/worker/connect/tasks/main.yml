@@ -5,5 +5,5 @@
    
 
 - name: Join the cluster
-  when: hostvars[groups['control-plane'][0]]['control_join_command'] is defined and ca_cert.rc != 0
-  shell: "{{ hostvars[groups['control-plane'][0]]['control_join_command'] }}"
+  when: hostvars[groups['control'][0]]['control_join_command'] is defined and ca_cert.rc != 0
+  shell: "{{ hostvars[groups['control'][0]]['control_join_command'] }}"
