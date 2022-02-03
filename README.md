@@ -19,7 +19,7 @@ worker1
 [control]
 main
 ```
-Then **change dir to ansible** an run :
+Then **change current dir to ./ansible** an run :
 ```bash
 ansible-playbook main.yml 
 ```
