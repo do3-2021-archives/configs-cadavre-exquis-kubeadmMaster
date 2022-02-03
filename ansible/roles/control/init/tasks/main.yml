@@ -1,28 +1,36 @@
+- name: Check that docker binary exists
+  shell:
+  register: is_docker_exist
+  ignore_errors: true
+
 - name: Configure the control plane
   shell: kubeadm init --pod-network-cidr=192.168.0.0/16
   register: kubeadm_init
+  ignore_errors: true
+
 - name: Copy kube config
+  when: kubeadm_init.rc == 0
   shell: |
     mkdir -p /root/.kube
     cp /etc/kubernetes/admin.conf /root/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
 
 - name: Install Tigera
-  when: kubeadm_init
+  when: kubeadm_init.rc == 0
   shell: kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
   register: tigera_install
 - name: Install Calico
-  when: tigera_install
+  when: kubeadm_init.rc == 0
   shell: kubectl create -f https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml
   register: calico_install
 
 - name: Wait for pods to be up
-  when: calico_install
-  shell: kubectl wait --namespace=calico-system --for=condition=Ready pods --selector tier=control-plane --timeout=600s
+  when: kubeadm_init.rc == 0
+  shell: kubectl wait --for=condition=Ready nodes --all --timeout=600s
   register: kubeadm_started
 
 - name: Taint node
-  when: kubeadm_started
+  when: kubeadm_init.rc == 0
   shell: kubectl taint nodes --all node-role.kubernetes.io/master-
   register: kubeadem_finished
 
@@ -33,4 +41,4 @@
 
 - name: Set join command
   set_fact:
-    join_command: "{{ join_command.stdout }}"
+    control_join_command: "{{ join_command.stdout }}"

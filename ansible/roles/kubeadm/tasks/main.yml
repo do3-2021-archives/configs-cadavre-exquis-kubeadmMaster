@@ -43,6 +43,7 @@
   dpkg_selections:
     name: kubeadm
     selection: hold
+
 - name: Hold kubectl
   dpkg_selections:
     name: kubectl

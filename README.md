@@ -19,3 +19,6 @@ minikube service dispatcher --url
 ## composition des deployments 
 ### dispatcher 
 
+
+
+## région OVH : LONDRES
