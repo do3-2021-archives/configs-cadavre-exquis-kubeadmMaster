@@ -8,3 +8,4 @@ spec:
     app: dispatcher
   ports:
     - port: 8080
+      nodePort: 30000

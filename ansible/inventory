@@ -1,9 +1,11 @@
-control ansible_user=root ansible_host=192.168.122.40 ansible_ssh_private_key_file=~/.ssh/git
-worker1 ansible_user=root ansible_host=192.168.122.191 ansible_ssh_private_key_file=~/.ssh/git
+b2-7-uk1-1 ansible_user=debian ansible_host=51.89.231.230 ansible_ssh_private_key_file=~/.ssh/git
+b2-7-uk1-2 ansible_user=debian ansible_host=51.89.226.255 ansible_ssh_private_key_file=~/.ssh/git
+b2-7-uk1-3 ansible_user=debian ansible_host=51.75.168.104 ansible_ssh_private_key_file=~/.ssh/git
 
 
 [worker]
-worker1
+b2-7-uk1-2
+b2-7-uk1-3
 
 [control]
-control
+b2-7-uk1-1

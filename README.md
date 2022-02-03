@@ -24,8 +24,9 @@ Then **change dir to ansible** an run :
 ansible-playbook main.yml 
 ```
 This should create the kubernetes cluster and deploy the app. There should be at least one control.  
-If a problem with kubernetes appear, execute `kubeadm reset` on all hosts and redeploy the ansible playbook.
+If a problem with kubernetes appear, execute `kubeadm reset` on all hosts and redeploy the ansible playbook.  
 
+The service should be accessible on `<control-ip>:30000`
 
 ## minikube
 Utilisation de minukube : 
